@@ -1,5 +1,5 @@
 alias activate=". .venv/bin/activate"
-alias mkvenv="python -m venv .venv; echo .venv >> .gitignore"
+alias mkvenv="python -m venv .venv; echo .venv >> .gitignore; touch requirements.txt"
 
 venv() {
   if [[ ! "$VIRTUAL_ENV" = "" ]];
@@ -11,8 +11,7 @@ venv() {
     echo "Activating venv: $PWD/.venv"
     source ".venv/bin/activate"
   else
-    echo "A .venv does not exist in directory (${PWD})"
-    echo "Create .venv? (y/n)"
+    echo "A .venv does not exist in directory (${PWD}). Create .venv? (y/n)"
     read createvenv
     if [ $createvenv = "y" ];
     then
@@ -42,8 +41,6 @@ rmvenv() {
     if [[ "$CONFIRMATION" == "y" ]];
     then
       rm -rf .venv
-    else
-      echo "Aborted"
     fi
   else
     echo "A .venv does not exist in directory (${PWD})"
